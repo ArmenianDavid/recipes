@@ -43,8 +43,9 @@ const App  = () =>{
 
   return(
     <div className='app' >
+      <h1 className='header'><span>Search a recipe with </span>ingridients you have</h1>
       <form onSubmit={getSearch} className='search-form'>
-        <input className='search-bar' type='text' value={search} onChange={updateSearch}  />
+        <input className='search-bar' placeholder='Write only one ingredient' type='text' value={search} onChange={updateSearch}  />
         <button className='search-button' type='submit'>Find</button>
       </form>
       <div className='recipes'>
