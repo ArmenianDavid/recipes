@@ -10,21 +10,24 @@ const App = () => {
     const [recipes, setRecipes] = useState([]);
     const [search, setSearch] = useState("");
     const [query, setQuery] = useState("");
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         getRecipes();
     }, [query]);
 
     const getRecipes = async () => {
+        setLoading(true);
         const response = await fetch(
             `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
         );
         const data = await response.json();
 
+        setLoading(false);
         setRecipes(data.hits);
     };
 
-    const updateSearch = (event) => {
+    const handleChange = (event) => {
         setSearch(event.target.value);
     };
 
@@ -45,23 +48,27 @@ const App = () => {
                     placeholder="Write only one ingredient"
                     type="text"
                     value={search}
-                    onChange={updateSearch}
+                    onChange={handleChange}
                 />
                 <button className="search-button" type="submit">
                     Find
                 </button>
             </form>
-            <div className="recipes">
-                {recipes.map((recipe) => (
-                    <Recipe
-                        key={recipe.recipe.label}
-                        title={recipe.recipe.label}
-                        calories={recipe.recipe.calories}
-                        image={recipe.recipe.image}
-                        ingredients={recipe.recipe.ingredients}
-                    />
-                ))}
-            </div>
+            {loading ? (
+                <div>Loading!!!</div>
+            ) : (
+                <div className="recipes">
+                    {recipes.map((recipe) => (
+                        <Recipe
+                            key={recipe.recipe.label}
+                            title={recipe.recipe.label}
+                            calories={recipe.recipe.calories}
+                            image={recipe.recipe.image}
+                            ingredients={recipe.recipe.ingredients}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     );
 };
