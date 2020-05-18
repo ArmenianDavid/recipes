@@ -1,4 +1,5 @@
 import React from "react";
+import uuid from "react-uuid";
 import "../recipe.modul.css";
 
 const Recipe = ({ title, calories, image, ingredients }) => {
@@ -9,9 +10,8 @@ const Recipe = ({ title, calories, image, ingredients }) => {
                 Ingredients
                 {ingredients.map((ingredient) => {
                     return (
-                        <li key={ingredient.text}>
-                            {" "}
-                            {ingredient.text}{" "}
+                        <li key={uuid()}>
+                            {ingredient.text}
                             <span className="weight">Weight</span>:{" "}
                             {Math.floor(ingredient.weight)} gram{" "}
                         </li>
