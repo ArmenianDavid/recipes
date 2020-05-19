@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import Recipe from "./Components/Recipe";
+// components
+import List from "./Components/List/List";
 
 const App = () => {
     const APP_ID = "4c4e8990";
@@ -11,6 +12,7 @@ const App = () => {
     const [search, setSearch] = useState("");
     const [query, setQuery] = useState("");
     const [loading, setLoading] = useState(false);
+    const [err, setErr] = useState("");
 
     useEffect(() => {
         getRecipes();
@@ -18,13 +20,18 @@ const App = () => {
 
     const getRecipes = async () => {
         setLoading(true);
-        const response = await fetch(
-            `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
-        );
-        const data = await response.json();
+        try {
+            const response = await fetch(
+                `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
+            );
+            const data = await response.json();
 
-        setLoading(false);
-        setRecipes(data.hits);
+            setLoading(false);
+            setRecipes(data.hits);
+        } catch (err) {
+            setErr(err);
+            setLoading(false);
+        }
     };
 
     const handleChange = (event) => {
@@ -54,21 +61,8 @@ const App = () => {
                     Find
                 </button>
             </form>
-            {loading ? (
-                <div>Loading!!!</div>
-            ) : (
-                <div className="recipes">
-                    {recipes.map((recipe) => (
-                        <Recipe
-                            key={recipe.recipe.label}
-                            title={recipe.recipe.label}
-                            calories={recipe.recipe.calories}
-                            image={recipe.recipe.image}
-                            ingredients={recipe.recipe.ingredients}
-                        />
-                    ))}
-                </div>
-            )}
+
+            <List loading={loading} recipes={recipes} err={err} />
         </div>
     );
 };
