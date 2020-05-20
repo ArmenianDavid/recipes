@@ -5,6 +5,7 @@
   "homepage": "https://ArmenianDavid.github.io/recipes",
   "dependencies": {
     "@material-ui/core": "^4.9.14",
+    "@material-ui/icons": "^4.9.1",
     "gh-pages": "^2.1.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
