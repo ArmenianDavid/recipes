@@ -22,15 +22,20 @@ const List = ({ loading, recipes, err }) => {
     }
     return (
         <div className="recipes">
-            {recipes.map((recipe) => (
-                <Recipe
-                    key={uuid()}
-                    title={recipe.recipe.label}
-                    calories={recipe.recipe.calories}
-                    image={recipe.recipe.image}
-                    ingredients={recipe.recipe.ingredients}
-                />
-            ))}
+            {recipes.map((item) => {
+                const { recipe } = item;
+                return (
+                    <Recipe
+                        calories={recipe.calories}
+                        healthLabels={recipe.healthLabels}
+                        image={recipe.image}
+                        ingredients={recipe.ingredients}
+                        key={uuid()}
+                        source={recipe.source}
+                        title={recipe.label}
+                    />
+                );
+            })}
         </div>
     );
 };
