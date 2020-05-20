@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // components
 import List from "./Components/List/List";
 
@@ -10,19 +10,14 @@ const App = () => {
 
     const [recipes, setRecipes] = useState([]);
     const [search, setSearch] = useState("");
-    const [query, setQuery] = useState("");
     const [loading, setLoading] = useState(false);
     const [err, setErr] = useState("");
 
-    useEffect(() => {
-        getRecipes();
-    }, [query]);
-
-    const getRecipes = async () => {
+    const getRecipes = async (search) => {
         setLoading(true);
         try {
             const response = await fetch(
-                `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
+                `https://api.edamam.com/search?q=${search}&app_id=${APP_ID}&app_key=${APP_KEY}`
             );
             const data = await response.json();
 
@@ -40,7 +35,7 @@ const App = () => {
 
     const getSearch = (event) => {
         event.preventDefault();
-        setQuery(search);
+        getRecipes(search);
         setSearch(" ");
     };
 
