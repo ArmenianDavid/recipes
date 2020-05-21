@@ -3,6 +3,8 @@ import { useState } from "react";
 // components
 import List from "./Components/List/List";
 
+import Button from "@material-ui/core/Button";
+
 const App = () => {
     const APP_ID = "4c4e8990";
     const APP_KEY = "dd268ffd9df9869bcbce1dccddbb9a12";
@@ -52,9 +54,9 @@ const App = () => {
                     value={search}
                     onChange={handleChange}
                 />
-                <button className="search-button" type="submit">
+                <Button variant="contained" color="primary" type="submit">
                     Find
-                </button>
+                </Button>
             </form>
 
             <List loading={loading} recipes={recipes} err={err} />
