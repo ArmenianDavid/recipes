@@ -69,11 +69,6 @@ const Recipe = ({
                         {title ? title[0].toUpperCase() : null}
                     </Avatar>
                 }
-                action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
-                }
                 title={title}
                 subheader={source ? `source : ${source}` : null}
             />
@@ -91,12 +86,6 @@ const Recipe = ({
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="share">
-                    <ShareIcon />
-                </IconButton>
                 <IconButton
                     className={clsx(classes.expand, {
                         [classes.expandOpen]: expanded,
